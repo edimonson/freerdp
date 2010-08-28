@@ -4,7 +4,7 @@
 
 Summary:	A free remote desktop protocol client
 Name:		freerdp
-Version:	0.7.3
+Version:	0.7.4
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Remote access
