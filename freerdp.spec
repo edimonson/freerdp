@@ -4,12 +4,12 @@
 
 Summary:	A free remote desktop protocol client
 Name:		freerdp
-Version:	0.7.4
+Version:	0.8.1
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/project/freerdp/0.7/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{name}-%{version}.tar.gz
 Patch0:		freerdp-0.7.2-fix_str.patch
 BuildRequires:	openssl-devel
 BuildRequires:	libsamplerate-devel
