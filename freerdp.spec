@@ -10,7 +10,6 @@ License:	GPLv2+
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{name}-%{version}.tar.gz
-Patch0:		freerdp-0.7.2-fix_str.patch
 BuildRequires:	openssl-devel
 BuildRequires:	libsamplerate-devel
 BuildRequires:	cups-devel
@@ -42,7 +41,6 @@ Development files and headers for %{name}.
 
 %prep
 %setup -q %{name}-%{version}
-%patch0 -p1
 
 %build
 %configure2_5x \
