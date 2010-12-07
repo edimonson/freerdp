@@ -11,7 +11,6 @@ Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{name}-%{version}.tar.gz
 BuildRequires:	openssl-devel
-BuildRequires:	libsamplerate-devel
 BuildRequires:	cups-devel
 BuildRequires:	libalsa-devel
 BuildRequires:	libxcursor-devel
