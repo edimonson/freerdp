@@ -1,15 +1,17 @@
 %define major 0
+%define pkgname	FreeRDP
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	A free remote desktop protocol client
 Name:		freerdp
-Version:	0.8.2
+Version:	1.0.0
 Release:	%mkrel 1
-License:	GPLv2+
+#License:	GPLv2+
+License:	Apache
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{pkgname}-%{version}.tar.gz
 BuildRequires:	openssl-devel
 BuildRequires:	cups-devel
 BuildRequires:	libalsa-devel
