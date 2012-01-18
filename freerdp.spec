@@ -10,8 +10,10 @@ Release:	%mkrel 1
 #License:	GPLv2+
 License:	Apache
 Group:		Networking/Remote access
-Url:		http://freerdp.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{pkgname}-%{version}.tar.gz
+#Url:		http://freerdp.sourceforge.net/
+URL:		http://www.freerdp.com/
+#Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{pkgname}-%{version}.tar.gz
+Source0:	https://github.com/downloads/FreeRDP/FreeRDP/%{pkgname}-%{version}.tar.gz
 BuildRequires:	openssl-devel
 BuildRequires:	cups-devel
 BuildRequires:	libalsa-devel
@@ -41,7 +43,8 @@ Provides:	lib%{name}-devel = %{version}-%{release}
 Development files and headers for %{name}.
 
 %prep
-%setup -q %{name}-%{version}
+%setup -q 
+#%{name}-%{version}
 
 %build
 %configure2_5x \
