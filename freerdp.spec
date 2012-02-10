@@ -21,6 +21,7 @@ BuildRequires:	pkgconfig(x11)
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
 BuildRequires:	xmlto
+BuildRequires:	xinerama-devel
 Requires:	%{libname} = %{version}-%{release}
 Patch0:		double_usr_libdir_path.patch
 
