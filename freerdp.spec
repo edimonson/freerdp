@@ -47,7 +47,7 @@ Development files and headers for %{name}.
 %patch0 -p1
 
 %build
-%cmake_qt4
+%cmake
 
 %make
 
