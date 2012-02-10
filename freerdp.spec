@@ -18,6 +18,7 @@ BuildRequires:	libxcursor-devel
 BuildRequires:	pkgconfig(xkbfile)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(x11)
+BuildRequires:	cmake
 Requires:	%{libname} = %{version}-%{release}
 Patch0:		double_usr_libdir_path.patch
 
