@@ -20,6 +20,7 @@ BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	cmake
 BuildRequires:	ffmpeg-devel
+BuildRequires:	xmlto
 Requires:	%{libname} = %{version}-%{release}
 Patch0:		double_usr_libdir_path.patch
 
