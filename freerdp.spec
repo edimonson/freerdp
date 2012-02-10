@@ -1,25 +1,25 @@
-%define major 0
+%define major 1
 %define pkgname	FreeRDP
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	A free remote desktop protocol client
 Name:		freerdp
-Version:	1.0.0
-Release:	%mkrel 1
-#License:	GPLv2+
+Version:	1.0.1
+Release:	1
 License:	Apache
 Group:		Networking/Remote access
-#Url:		http://freerdp.sourceforge.net/
 URL:		http://www.freerdp.com/
-#Source0:	http://downloads.sourceforge.net/project/freerdp/0.8/%{pkgname}-%{version}.tar.gz
 Source0:	https://github.com/downloads/FreeRDP/FreeRDP/%{pkgname}-%{version}.tar.gz
 BuildRequires:	openssl-devel
 BuildRequires:	cups-devel
 BuildRequires:	libalsa-devel
 BuildRequires:	libxcursor-devel
+BuildRequires:	pkgconfig(xkbfile)
+BuildRequires:	pkgconfig(xv)
+BuildRequires:	pkgconfig(x11)
 Requires:	%{libname} = %{version}-%{release}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+Patch0:		double_usr_libdir_path.patch
 
 %description
 FreeRDP is a fork of the rdesktop project.
@@ -43,42 +43,32 @@ Provides:	lib%{name}-devel = %{version}-%{release}
 Development files and headers for %{name}.
 
 %prep
-%setup -q 
-#%{name}-%{version}
+%setup -q -n FreeRDP-FreeRDP-8e62721
+%patch0 -p1
 
 %build
-%configure2_5x \
-	--disable-static \
-	--with-sound=alsa
+%cmake_qt4
 
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
+cd build/
 %makeinstall_std
 
 %find_lang %{name}
 rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 rm -rf %{buildroot}%{_libdir}/*.la
 
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
-%files -f %{name}.lang
-%defattr(-,root,root)
-%doc AUTHORS README
+%files
+%doc README
 %{_bindir}/*
-%{_libdir}/%{name}
+%{_libdir}/%{name}/*.so
 %{_datadir}/%{name}
-%{_mandir}/man1/xfreerdp.1.*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_libdir}/*.so
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/freerdp.pc
