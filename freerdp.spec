@@ -57,7 +57,6 @@ Development files and headers for %{name}.
 cd build/
 %makeinstall_std
 
-%find_lang %{name}
 rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 rm -rf %{buildroot}%{_libdir}/*.la
 
