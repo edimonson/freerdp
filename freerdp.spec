@@ -6,7 +6,7 @@
 Summary:	A free remote desktop protocol client
 Name:		freerdp
 Version:	1.0.1
-Release:	1
+Release:	2
 License:	Apache
 Group:		Networking/Remote access
 URL:		http://www.freerdp.com/
@@ -67,6 +67,7 @@ rm -rf %{buildroot}%{_libdir}/*.la
 %{_bindir}/*
 %{_libdir}/%{name}/*.so
 %{_datadir}/%{name}
+%{_mandir}/man1/*.1.*
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}*
