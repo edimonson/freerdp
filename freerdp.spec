@@ -1,5 +1,6 @@
 %define major 1
 %define pkgname	FreeRDP
+%define release 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
@@ -7,9 +8,9 @@ Summary:	A free remote desktop protocol client
 Name:		freerdp
 Version:	1.0.1
 %if %mdkversion <= 201100 
-Release:	%mkrel 2
+Release:	%mkrel %{release}
 %else
-Release:	2
+Release:	%{release}
 %endif
 License:	Apache
 Group:		Networking/Remote access
