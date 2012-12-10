@@ -1,34 +1,27 @@
 %define major 1
-%define pkgname	FreeRDP
-%define release 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
+%define _disable_ld_no_undefined 1
 
 Summary:	A free remote desktop protocol client
 Name:		freerdp
 Version:	1.0.1
-%if %mdkversion <= 201100 
-Release:	%mkrel %{release}
-%else
-Release:	%{release}
-%endif
+Release:	1
 License:	Apache
 Group:		Networking/Remote access
-URL:		http://www.freerdp.com/
-Source0:	https://github.com/downloads/FreeRDP/FreeRDP/%{pkgname}-%{version}.tar.gz
-BuildRequires:	openssl-devel
+Url:		http://freerdp.sourceforge.net/
+Source0:	https://github.com/downloads/FreeRDP/FreeRDP/%{name}-%{version}.tar.gz
+BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cups-devel
-BuildRequires:	libalsa-devel
+BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	libxcursor-devel
-BuildRequires:	pkgconfig(xkbfile)
-BuildRequires:	pkgconfig(xv)
-BuildRequires:	pkgconfig(x11)
+BuildRequires:  pkgconfig(xinerama)
+BuildRequires:  pkgconfig(xkbfile)
+BuildRequires:  pkgconfig(xv)
+BuildRequires:  pkgconfig(x11)
 BuildRequires:	cmake
-BuildRequires:	ffmpeg-devel
 BuildRequires:	xmlto
-BuildRequires:	pkgconfig(xinerama)
-Requires:	%{libname} = %{version}-%{release}
-Patch0:		double_usr_libdir_path.patch
+BuildRequires:	docbook-style-xsl
 
 %description
 FreeRDP is a fork of the rdesktop project.
@@ -36,7 +29,6 @@ FreeRDP is a fork of the rdesktop project.
 %package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
-Requires:	%{name} = %{version}-%{release}
 
 %description -n %{libname}
 Shared libraries for %{name}.
@@ -46,33 +38,44 @@ Summary:	Development files for %{name}
 Group:		Development/C++
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 
 %description -n %{develname}
 Development files and headers for %{name}.
 
 %prep
-%setup -q -n FreeRDP-FreeRDP-8e62721
-%patch0 -p1
+%setup -q
 
 %build
-%cmake
-
+%cmake \
+    -DWITH_CUPS=ON \
+    -DWITH_PULSEAUDIO=ON \
+    -DWITH_X11=ON \
+    -DWITH_XCURSOR=ON \
+    -DWITH_XEXT=ON \
+    -DWITH_XINERAMA=ON \
+    -DWITH_XKBFILE=ON \
+    -DWITH_XV=ON \
+    -DWITH_ALSA=OFF \
+    -DWITH_CUNIT=OFF \
+    -DWITH_DIRECTFB=OFF \
+    -DWITH_FFMPEG=OFF \
+    -DWITH_SSE2=OFF \
+    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}
 %make
 
 %install
-cd build/
+cd build
 %makeinstall_std
 
 rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 rm -rf %{buildroot}%{_libdir}/*.la
 
 %files
-%doc README
+%doc ChangeLog LICENSE README
 %{_bindir}/*
-%{_libdir}/%{name}/*.so
+%{_libdir}/%{name}
 %{_datadir}/%{name}
-%{_mandir}/man1/*.1.*
+%{_mandir}/man1/xfreerdp.1.*
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}*
