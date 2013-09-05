@@ -11,6 +11,7 @@ License:	Apache
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
 Source0:	https://github.com/downloads/FreeRDP/FreeRDP/%{name}-%{version}.tar.gz
+Source100:	%{name}.rpmlintrc
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	cups-devel
 BuildRequires:	pkgconfig(libpulse)
