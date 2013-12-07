@@ -3,7 +3,7 @@
 Summary:	A free remote desktop protocol client
 Name:		freerdp
 Version:	1.0.2
-Release:	2
+Release:	3
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
