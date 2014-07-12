@@ -145,6 +145,7 @@ Shared library for %{name}.
 Summary:	Shared library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}freerdp1 < 1.0.2
+Obsoletes:	%{mklibname freerdp 1} < 1.0.2
 
 %description -n %{libutils}
 Shared library for %{name}.
