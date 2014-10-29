@@ -1,0 +1,11 @@
+--- FreeRDP-1.0.2/include/freerdp/api.h.orig	2014-10-29 07:50:24.391443712 +0000
++++ FreeRDP-1.0.2/include/freerdp/api.h	2014-10-29 07:52:23.333434949 +0000
+@@ -53,7 +53,7 @@
+ #ifdef _WIN32
+ #define INLINE	__inline
+ #else
+-#define INLINE	inline
++#define INLINE
+ #endif
+ 
+ #define IFCALL(_cb, ...) do { if (_cb != NULL) { _cb( __VA_ARGS__ ); } } while (0)

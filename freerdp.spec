@@ -3,11 +3,12 @@
 Summary:	A free remote desktop protocol client
 Name:		freerdp
 Version:	1.0.2
-Release:	7
+Release:	8
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
 Source0:	https://github.com/downloads/FreeRDP/FreeRDP/%{name}-%{version}.tar.gz
+Patch1:		freerdp-1.0.2-clang.patch
 BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
@@ -182,6 +183,7 @@ Development files and headers for %{name}.
 
 %prep
 %setup -q -n FreeRDP-%{version}
+%apply_patches
 
 %build
 %cmake \
@@ -198,7 +200,8 @@ Development files and headers for %{name}.
     -DWITH_DIRECTFB=OFF \
     -DWITH_FFMPEG=OFF \
     -DWITH_SSE2=OFF \
-    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}
+    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
+    -DINLINE=''
 %make
 
 %install
