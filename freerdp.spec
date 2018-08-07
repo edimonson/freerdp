@@ -21,6 +21,7 @@ BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xkbfile)
 BuildRequires:	pkgconfig(xv)
+BuildRequires:	pkgconfig(zlib)
 
 %description
 FreeRDP is a fork of the rdesktop project.
