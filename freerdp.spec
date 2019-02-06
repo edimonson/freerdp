@@ -10,7 +10,7 @@
 %define develname	%mklibname %{name} -d
 
 %define rc_ver		1
-%define rc_name		rc3
+%define rc_name		rc4
 %if %{rc_ver}
 %define release		%mkrel -c %{rc_name} %{rel}
 %define tarballver	%{version}-%{rc_name}
@@ -167,9 +167,9 @@ find %{buildroot} -name '*.a' -delete
 %{_mandir}/man7/wlog.7.*
 
 %files -n %{libname}
-%{_libdir}/lib*%{name}*.so.%{major}{,.*}
-%{_libdir}/libwinpr*.so.%{winpr_major}{,.*}
-%{_libdir}/libuwac*.so.%{uwac_major}{,.*}
+%{_libdir}/lib*%{name}*.so.%{major}*
+%{_libdir}/libwinpr*.so.%{winpr_major}*
+%{_libdir}/libuwac*.so.%{uwac_major}*
 
 %files -n %{develname}
 %{_libdir}/*.so
