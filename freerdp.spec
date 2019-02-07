@@ -139,7 +139,7 @@ Development files and headers for %{name}.
     -DARM_FP_ABI=hard \
     -DWITH_NEON=OFF \
 %endif
-%ifarch armv7hnl aarch64
+%ifarch armv7hnl
     -DARM_FP_ABI=hard \
     -DWITH_NEON=ON \
 %endif
