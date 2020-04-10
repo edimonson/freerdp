@@ -32,9 +32,11 @@ BuildRequires:	cups-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
 BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(pango)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xkbfile)
