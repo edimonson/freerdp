@@ -147,7 +147,7 @@ find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
 
 %files
-%doc ChangeLog README
+%doc ChangeLog README.md
 %license LICENSE
 %{_bindir}/*
 %{_libdir}/%{name}2/
