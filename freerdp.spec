@@ -9,14 +9,15 @@
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
-%define rc_ver		1
+%define oname       FreeRDP
+%define rc_ver		%{nil}
 %define rc_name		rc4
 %if %{rc_ver}
 %define release		%mkrel -c %{rc_name} %{rel}
 %define tarballver	%{version}-%{rc_name}
 %define tarballdir	%{version}-%{rc_name}
 %else
-%define release		%mkrel %{rel}
+%define release		%{rel}
 %define tarballver	%{version}
 %define tarballdir	v%{version}
 %endif
@@ -34,7 +35,7 @@ Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
-Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballdir}/FreeRDP-%{tarballver}.tar.gz
+Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
