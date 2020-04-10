@@ -10,19 +10,8 @@
 %define develname	%mklibname %{name} -d
 
 %define oname       FreeRDP
-%define rc_ver		%{nil}
-%define rc_name		rc4
-%if %{rc_ver}
-%define release		%mkrel -c %{rc_name} %{rel}
-%define tarballver	%{version}-%{rc_name}
-%define tarballdir	%{version}-%{rc_name}
-%else
-%define release		%{rel}
 %define tarballver	%{version}
 %define tarballdir	v%{version}
-%endif
-
-%define rel		1
 
 # Momentarily disable GSS support
 # https://github.com/FreeRDP/FreeRDP/issues/4348
@@ -30,7 +19,7 @@
 
 Name:		freerdp
 Version:	2.0.0
-Release:	%{release}.%{rc_name}
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
