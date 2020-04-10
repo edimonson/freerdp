@@ -9,19 +9,9 @@
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
-%define rc_ver		1
-%define rc_name		rc4
-%if %{rc_ver}
-%define release		%mkrel -c %{rc_name} %{rel}
-%define tarballver	%{version}-%{rc_name}
-%define tarballdir	%{version}-%{rc_name}
-%else
-%define release		%mkrel %{rel}
+%define oname       FreeRDP
 %define tarballver	%{version}
 %define tarballdir	v%{version}
-%endif
-
-%define rel		1
 
 # Momentarily disable GSS support
 # https://github.com/FreeRDP/FreeRDP/issues/4348
@@ -29,12 +19,12 @@
 
 Name:		freerdp
 Version:	2.0.0
-Release:	%{release}.%{rc_name}
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
-Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballdir}/FreeRDP-%{tarballver}.tar.gz
+Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
@@ -42,9 +32,11 @@ BuildRequires:	cups-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
 BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(pango)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xkbfile)
@@ -155,7 +147,7 @@ find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
 
 %files
-%doc ChangeLog README
+%doc ChangeLog README.md
 %license LICENSE
 %{_bindir}/*
 %{_libdir}/%{name}2/
