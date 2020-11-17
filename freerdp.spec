@@ -1,7 +1,7 @@
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
 
-%define up_name		freerdp2
+%define up_name		freerdp3
 
 %define winpr_major	3
 %define uwac_major	0
