@@ -156,7 +156,7 @@ find %{buildroot} -name '*.a' -delete
 %doc ChangeLog README.md
 %license LICENSE
 %{_bindir}/*
-%{_libdir}/%{name}2/
+%{_libdir}/%{name}*/
 %{_mandir}/man1/xfreerdp.1.*
 %{_mandir}/man1/freerdp-shadow-cli.1.*
 %{_mandir}/man1/winpr-hash.1.*
