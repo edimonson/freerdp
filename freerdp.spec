@@ -24,7 +24,8 @@ Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
-Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
+#Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
+Source0:	FreeRDP-master.zip
 Patch0:		openssl3.patch
 BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
@@ -91,7 +92,8 @@ Development files and headers for %{name}.
 #----------------------------------------------------
 
 %prep
-%setup -qn FreeRDP-%{tarballver}
+#setup -qn FreeRDP-%{tarballver}
+%setup -qn FreeRDP-master
 %autopatch -p1
 
 %build
