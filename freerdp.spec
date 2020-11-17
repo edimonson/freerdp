@@ -91,8 +91,7 @@ Development files and headers for %{name}.
 #----------------------------------------------------
 
 %prep
-#setup -qn FreeRDP-%{tarballver}
-%setup -qn FreeRDP-master
+%setup -qn FreeRDP-%{tarballver}
 %autopatch -p1
 
 %build
