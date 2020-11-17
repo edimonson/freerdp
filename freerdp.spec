@@ -32,6 +32,7 @@ BuildRequires:	xmlto
 BuildRequires:	cups-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
+BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:	pkgconfig(libjpeg)
@@ -104,6 +105,7 @@ Development files and headers for %{name}.
     -DWITH_GSSAPI=%{?_with_gss:ON}%{?!_with_gss:OFF} \
     -DWITH_GSTREAMER_1_0=ON -DWITH_GSTREAMER_0_10=OFF \
     -DGSTREAMER_1_0_INCLUDE_DIRS=%{_includedir}/gstreamer-1.0 \
+    -DWITH_ICU=ON \
     -DWITH_IPP=OFF \
     -DWITH_JPEG=ON \
     -DWITH_MANPAGES=ON \
