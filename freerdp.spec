@@ -3,9 +3,9 @@
 
 %define up_name		freerdp2
 
-%define winpr_major	2
+%define winpr_major	3
 %define uwac_major	0
-%define major		2
+%define major		3
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
