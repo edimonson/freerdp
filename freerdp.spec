@@ -1,11 +1,11 @@
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
 
-%define up_name		freerdp3
+%define up_name		freerdp2
 
-%define winpr_major	3
+%define winpr_major	2
 %define uwac_major	0
-%define major		3
+%define major		2
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
@@ -24,8 +24,7 @@ Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
-#Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
-Source0:	FreeRDP-master.zip
+Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
 Patch0:		openssl3.patch
 BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
