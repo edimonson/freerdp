@@ -115,6 +115,7 @@ Development files and headers for %{name}.
     -DWITH_SERVER=ON -DWITH_SERVER_INTERFACE=ON \
     -DWITH_SHADOW_X11=ON -DWITH_SHADOW_MAC=ON \
     -DWITH_WAYLAND=ON \
+    -DWITH_VAAPI=ON \
     -DWITH_X11=ON \
     -DWITH_XCURSOR=ON \
     -DWITH_XEXT=ON \
