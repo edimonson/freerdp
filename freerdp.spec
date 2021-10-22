@@ -1,3 +1,5 @@
+%global optflags %{optflags} -O2
+
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
 
@@ -19,7 +21,7 @@
 
 Name:		freerdp
 Version:	2.4.0
-Release:	1
+Release:	2
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
@@ -33,19 +35,19 @@ BuildRequires:	cups-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
 BuildRequires:	pkgconfig(icu-i18n)
-BuildRequires:  pkgconfig(alsa)
-BuildRequires:  pkgconfig(pango)
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libusb-1.0)
-BuildRequires:  pkgconfig(libva)
+BuildRequires:	pkgconfig(libusb-1.0)
+BuildRequires:	pkgconfig(libva)
 BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(xkbfile)
 BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(x11)
-BuildRequires:  pam-devel
+BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gstreamer-base-1.0)
 BuildRequires:	pkgconfig(gstreamer-app-1.0)
@@ -69,24 +71,24 @@ FreeRDP is a fork of the rdesktop project.
 
 #----------------------------------------------------
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
 # ease for update
 Conflicts:	%{mklibname freerdp 1} < 1.2.0-5
 
-%description -n	%{libname}
+%description -n %{libname}
 Shared libraries for %{name}.
 
 #----------------------------------------------------
 
-%package -n	%{develname}
+%package -n %{develname}
 Summary:	Development files for %{name}
 Group:		Development/C++
 Requires:	%{libname} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
-%description -n	%{develname}
+%description -n %{develname}
 Development files and headers for %{name}.
 
 #----------------------------------------------------
@@ -99,7 +101,8 @@ Development files and headers for %{name}.
 %cmake \
     -DWITH_ALSA=ON \
     -DWITH_CUPS=ON \
-    -DWITH_CHANNELS=ON -DBUILTIN_CHANNELS=OFF \
+    -DWITH_CHANNELS=ON \
+    -DBUILTIN_CHANNELS=OFF \
     -DWITH_CLIENT=ON \
     -DWITH_DIRECTFB=OFF \
     -DWITH_GSM=ON \
@@ -157,12 +160,12 @@ find %{buildroot} -name '*.a' -delete
 %license LICENSE
 %{_bindir}/*
 %{_libdir}/%{name}*/
-%{_mandir}/man1/xfreerdp.1.*
-%{_mandir}/man1/freerdp-shadow-cli.1.*
-%{_mandir}/man1/winpr-hash.1.*
-%{_mandir}/man1/winpr-makecert.1.*
-%{_mandir}/man1/wlfreerdp.1.*
-%{_mandir}/man7/wlog.7.*
+%doc %{_mandir}/man1/xfreerdp.1.*
+%doc %{_mandir}/man1/freerdp-shadow-cli.1.*
+%doc %{_mandir}/man1/winpr-hash.1.*
+%doc %{_mandir}/man1/winpr-makecert.1.*
+%doc %{_mandir}/man1/wlfreerdp.1.*
+%doc %{_mandir}/man7/wlog.7.*
 
 %files -n %{libname}
 %{_libdir}/lib*%{name}*.so.%{major}*
