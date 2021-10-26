@@ -20,8 +20,8 @@
 #global _with_gss 1
 
 Name:		freerdp
-Version:	2.4.0
-Release:	2
+Version:	2.4.1
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
