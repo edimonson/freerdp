@@ -27,7 +27,7 @@ License:	Apache License
 Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
 Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
-Patch0:		openssl3.patch
+#Patch0:		openssl3.patch
 BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
