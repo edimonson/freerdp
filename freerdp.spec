@@ -21,7 +21,7 @@
 
 Name:		freerdp
 Version:	2.4.1
-Release:	1
+Release:	2
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
@@ -32,22 +32,14 @@ BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
 BuildRequires:	cups-devel
+BuildRequires:	faac-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
-BuildRequires:	pkgconfig(icu-i18n)
-BuildRequires:	pkgconfig(alsa)
-BuildRequires:	pkgconfig(pango)
-BuildRequires:	pkgconfig(libjpeg)
-BuildRequires:	pkgconfig(openssl)
-BuildRequires:	pkgconfig(libpulse)
-BuildRequires:	pkgconfig(libusb-1.0)
-BuildRequires:	pkgconfig(libva)
-BuildRequires:	pkgconfig(xcursor)
-BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	pkgconfig(xkbfile)
-BuildRequires:	pkgconfig(xv)
-BuildRequires:	pkgconfig(x11)
+BuildRequires:	lame-devel
+BuildRequires:	mbedtls-devel
 BuildRequires:	pam-devel
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(faad2)
 BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gstreamer-base-1.0)
 BuildRequires:	pkgconfig(gstreamer-app-1.0)
@@ -55,15 +47,31 @@ BuildRequires:	pkgconfig(gstreamer-audio-1.0)
 BuildRequires:	pkgconfig(gstreamer-fft-1.0)
 BuildRequires:	pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:	pkgconfig(gstreamer-video-1.0)
+BuildRequires:	pkgconfig(icu-i18n)
 %{?_with_gss:BuildRequires:  pkgconfig(krb5) >= 1.13}
+BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
+BuildRequires:	pkgconfig(libpulse)
+BuildRequires:	pkgconfig(libusb-1.0)
+BuildRequires:	pkgconfig(libva)
+BuildRequires:	pkgconfig(OpenCL)
+BuildRequires:	pkgconfig(openh264)
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(pango)
+BuildRequires:	pkgconfig(sox)
+BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
-BuildRequires:	pkgconfig(xdamage)
 BuildRequires:	pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xcursor)
+BuildRequires:	pkgconfig(xdamage)
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(xkbfile)
+BuildRequires:	pkgconfig(xv)
 BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xi)
-BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(zlib)
 
 %description
@@ -99,52 +107,61 @@ Development files and headers for %{name}.
 
 %build
 %cmake \
-    -DWITH_ALSA=ON \
-    -DWITH_CUPS=ON \
-    -DWITH_CHANNELS=ON \
-    -DBUILTIN_CHANNELS=OFF \
-    -DWITH_CLIENT=ON \
-    -DWITH_DIRECTFB=OFF \
-    -DWITH_GSM=ON \
+    -DWITH_ALSA:BOOL=ON \
+    -DWITH_CUPS:BOOL=ON \
+    -DWITH_CHANNELS:BOOL=ON \
+    -DBUILTIN_CHANNELS:BOOL=OFF \
+    -DWITH_CLIENT:BOOL=ON \
+    -DWITH_DIRECTFB:BOOL=OFF \
+    -DWITH_FAAC:BOOL=ON \
+    -DWITH_FAAD2:BOOL=ON \
+    -DWITH_FFMPEG:BOOL=ON \
+    -DWITH_GSM:BOOL=ON \
     -DWITH_GSSAPI=%{?_with_gss:ON}%{?!_with_gss:OFF} \
-    -DWITH_GSTREAMER_1_0=ON -DWITH_GSTREAMER_0_10=OFF \
+    -DWITH_GSTREAMER_1_0:BOOL=ON -DWITH_GSTREAMER_0_10:BOOL=OFF \
     -DGSTREAMER_1_0_INCLUDE_DIRS=%{_includedir}/gstreamer-1.0 \
-    -DWITH_ICU=ON \
-    -DWITH_IPP=OFF \
-    -DWITH_JPEG=ON \
-    -DWITH_MANPAGES=ON \
-    -DWITH_OPENSSL=ON \
-    -DWITH_PCSC=ON \
-    -DWITH_PULSE=ON \
-    -DWITH_SERVER=ON -DWITH_SERVER_INTERFACE=ON \
-    -DWITH_SHADOW_X11=ON -DWITH_SHADOW_MAC=ON \
-    -DWITH_WAYLAND=ON \
-    -DWITH_VAAPI=ON \
-    -DWITH_X11=ON \
-    -DWITH_XCURSOR=ON \
-    -DWITH_XEXT=ON \
-    -DWITH_XKBFILE=ON \
-    -DWITH_XI=ON \
-    -DWITH_XINERAMA=ON \
-    -DWITH_XRENDER=ON \
-    -DWITH_XTEST=OFF \
-    -DWITH_XV=ON \
-    -DWITH_ZLIB=ON \
-    -DWITH_FFMPEG=ON \
+    -DWITH_ICU:BOOL=ON \
+    -DWITH_IPP:BOOL=OFF \
+    -DWITH_JPEG:BOOL=ON \
+    -DWITH_LAME:BOOL=ON \
+    -DWITH_MANPAGES:BOOL=ON \
+	-DWITH_OPENCL:BOOL=ON \
+	-DWITH_OPENH264:BOOL=ON \
+    -DWITH_OPENSSL:BOOL=ON \
+    -DWITH_MBEDTLS:BOOL=ON \
+    -DWITH_PCSC:BOOL=ON \
+    -DWITH_PULSE:BOOL=ON \
+    -DWITH_SERVER:BOOL=ON -DWITH_SERVER_INTERFACE:BOOL=ON \
+    -DWITH_SHADOW_X11:BOOL=ON -DWITH_SHADOW_MAC:BOOL=ON \
+    -DWITH_SOXR:BOOL=ON \
 %ifarch %{x86_64}
-    -DWITH_SSE2=ON \
+    -DWITH_SSE2:BOOL=ON \
 %else
-    -DWITH_SSE2=OFF \
+    -DWITH_SSE2:BOOL=OFF \
 %endif
+    -DWITH_WAYLAND:BOOL=ON \
+    -DWITH_VAAPI:BOOL=ON \
+	-DWITH_X264:BOOL=OFF \
+    -DWITH_X11:BOOL=ON \
+    -DWITH_XCURSOR:BOOL=ON \
+    -DWITH_XEXT:BOOL=ON \
+    -DWITH_XKBFILE:BOOL=ON \
+    -DWITH_XI:BOOL=ON \
+    -DWITH_XINERAMA:BOOL=ON \
+    -DWITH_XRENDER:BOOL=ON \
+    -DWITH_XTEST:BOOL=OFF \
+    -DWITH_XV:BOOL=ON \
+    -DWITH_ZLIB:BOOL=ON \
 %ifarch armv7hl
     -DARM_FP_ABI=hard \
-    -DWITH_NEON=OFF \
+    -DWITH_NEON:BOOL=OFF \
 %endif
 %ifarch armv7hnl
     -DARM_FP_ABI=hard \
-    -DWITH_NEON=ON \
+    -DWITH_NEON:BOOL=ON \
 %endif
-    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}
+    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
+	%{nil}
 
 %make_build
 
@@ -183,3 +200,4 @@ find %{buildroot} -name '*.a' -delete
 %{_libdir}/cmake/FreeRDP*/
 %{_libdir}/cmake/WinPR*/
 %{_libdir}/cmake/uwac*/
+
