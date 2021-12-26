@@ -1,5 +1,3 @@
-%global optflags %{optflags} -O2
-
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
 
@@ -11,13 +9,18 @@
 %define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
-%define oname       FreeRDP
+%define oname		FreeRDP
 %define tarballver	%{version}
 %define tarballdir	v%{version}
 
 # Momentarily disable GSS support
 # https://github.com/FreeRDP/FreeRDP/issues/4348
-#global _with_gss 1
+%bcond_with	gss
+
+# disable packages in restricet repo
+%bcond_with	faac
+%bcond_with	faad
+%bcond_with	x264
 
 Name:		freerdp
 Version:	2.4.1
@@ -32,14 +35,18 @@ BuildRequires:	cmake
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
 BuildRequires:	cups-devel
+%if %{with faac}
 BuildRequires:	faac-devel
+%endif
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
 BuildRequires:	lame-devel
 BuildRequires:	mbedtls-devel
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(alsa)
+%if %{with faac}
 BuildRequires:	pkgconfig(faad2)
+%endif
 BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gstreamer-base-1.0)
 BuildRequires:	pkgconfig(gstreamer-app-1.0)
@@ -48,7 +55,9 @@ BuildRequires:	pkgconfig(gstreamer-fft-1.0)
 BuildRequires:	pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:	pkgconfig(gstreamer-video-1.0)
 BuildRequires:	pkgconfig(icu-i18n)
-%{?_with_gss:BuildRequires:  pkgconfig(krb5) >= 1.13}
+%if %{with gss}
+BuildRequires:  pkgconfig(krb5) >= 1.13
+%endif
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
 BuildRequires:	pkgconfig(libpulse)
@@ -62,7 +71,10 @@ BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
 BuildRequires:	pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:	pkgconfig(wayland-scanner)
+%if %{with x264}
+BuildRequires:	pkgconfig(x264)
+%endif
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	pkgconfig(xdamage)
@@ -107,60 +119,60 @@ Development files and headers for %{name}.
 
 %build
 %cmake \
-    -DWITH_ALSA:BOOL=ON \
-    -DWITH_CUPS:BOOL=ON \
-    -DWITH_CHANNELS:BOOL=ON \
-    -DBUILTIN_CHANNELS:BOOL=OFF \
-    -DWITH_CLIENT:BOOL=ON \
-    -DWITH_DIRECTFB:BOOL=OFF \
-    -DWITH_FAAC:BOOL=ON \
-    -DWITH_FAAD2:BOOL=ON \
-    -DWITH_FFMPEG:BOOL=ON \
-    -DWITH_GSM:BOOL=ON \
-    -DWITH_GSSAPI=%{?_with_gss:ON}%{?!_with_gss:OFF} \
-    -DWITH_GSTREAMER_1_0:BOOL=ON -DWITH_GSTREAMER_0_10:BOOL=OFF \
-    -DGSTREAMER_1_0_INCLUDE_DIRS=%{_includedir}/gstreamer-1.0 \
-    -DWITH_ICU:BOOL=ON \
-    -DWITH_IPP:BOOL=OFF \
-    -DWITH_JPEG:BOOL=ON \
-    -DWITH_LAME:BOOL=ON \
-    -DWITH_MANPAGES:BOOL=ON \
+	-DWITH_ALSA:BOOL=ON \
+	-DWITH_CUPS:BOOL=ON \
+	-DWITH_CHANNELS:BOOL=ON \
+	-DBUILTIN_CHANNELS:BOOL=OFF \
+	-DWITH_CLIENT:BOOL=ON \
+	-DWITH_DIRECTFB:BOOL=OFF \
+	-DWITH_FAAC:BOOL=%{?with_faac:ON}%{?!with_faac:OFF} \
+	-DWITH_FAAD2:BOOL=%{?with_faad:ON}%{?!with_faad:OFF} \
+	-DWITH_FFMPEG:BOOL=ON \
+	-DWITH_GSM:BOOL=ON \
+	-DWITH_GSSAPI:BOOL=%{?_with_gss:ON}%{?!_with_gss:OFF} \
+	-DWITH_GSTREAMER_1_0:BOOL=ON -DWITH_GSTREAMER_0_10:BOOL=OFF \
+	-DGSTREAMER_1_0_INCLUDE_DIRS=%{_includedir}/gstreamer-1.0 \
+	-DWITH_ICU:BOOL=ON \
+	-DWITH_IPP:BOOL=OFF \
+	-DWITH_JPEG:BOOL=ON \
+	-DWITH_LAME:BOOL=ON \
+	-DWITH_MANPAGES:BOOL=ON \
 	-DWITH_OPENCL:BOOL=ON \
 	-DWITH_OPENH264:BOOL=ON \
-    -DWITH_OPENSSL:BOOL=ON \
-    -DWITH_MBEDTLS:BOOL=ON \
-    -DWITH_PCSC:BOOL=ON \
-    -DWITH_PULSE:BOOL=ON \
-    -DWITH_SERVER:BOOL=ON -DWITH_SERVER_INTERFACE:BOOL=ON \
-    -DWITH_SHADOW_X11:BOOL=ON -DWITH_SHADOW_MAC:BOOL=ON \
-    -DWITH_SOXR:BOOL=ON \
+	-DWITH_OPENSSL:BOOL=ON \
+	-DWITH_MBEDTLS:BOOL=ON \
+	-DWITH_PCSC:BOOL=ON \
+	-DWITH_PULSE:BOOL=ON \
+	-DWITH_SERVER:BOOL=ON -DWITH_SERVER_INTERFACE:BOOL=ON \
+	-DWITH_SHADOW_X11:BOOL=ON -DWITH_SHADOW_MAC:BOOL=ON \
+	-DWITH_SOXR:BOOL=ON \
 %ifarch %{x86_64}
-    -DWITH_SSE2:BOOL=ON \
+	-DWITH_SSE2:BOOL=ON \
 %else
-    -DWITH_SSE2:BOOL=OFF \
+	-DWITH_SSE2:BOOL=OFF \
 %endif
-    -DWITH_WAYLAND:BOOL=ON \
-    -DWITH_VAAPI:BOOL=ON \
-	-DWITH_X264:BOOL=OFF \
-    -DWITH_X11:BOOL=ON \
-    -DWITH_XCURSOR:BOOL=ON \
-    -DWITH_XEXT:BOOL=ON \
-    -DWITH_XKBFILE:BOOL=ON \
-    -DWITH_XI:BOOL=ON \
-    -DWITH_XINERAMA:BOOL=ON \
-    -DWITH_XRENDER:BOOL=ON \
-    -DWITH_XTEST:BOOL=OFF \
-    -DWITH_XV:BOOL=ON \
-    -DWITH_ZLIB:BOOL=ON \
+	-DWITH_WAYLAND:BOOL=ON \
+	-DWITH_VAAPI:BOOL=ON \
+	-DWITH_X264:BOOL=%{?with_x264:ON}%{?!with_x264:OFF} \
+	-DWITH_X11:BOOL=ON \
+	-DWITH_XCURSOR:BOOL=ON \
+	-DWITH_XEXT:BOOL=ON \
+	-DWITH_XKBFILE:BOOL=ON \
+	-DWITH_XI:BOOL=ON \
+	-DWITH_XINERAMA:BOOL=ON \
+	-DWITH_XRENDER:BOOL=ON \
+	-DWITH_XTEST:BOOL=OFF \
+	-DWITH_XV:BOOL=ON \
+	-DWITH_ZLIB:BOOL=ON \
 %ifarch armv7hl
-    -DARM_FP_ABI=hard \
-    -DWITH_NEON:BOOL=OFF \
+	-DARM_FP_ABI=hard \
+	-DWITH_NEON:BOOL=OFF \
 %endif
 %ifarch armv7hnl
-    -DARM_FP_ABI=hard \
-    -DWITH_NEON:BOOL=ON \
+	-DARM_FP_ABI=hard \
+	-DWITH_NEON:BOOL=ON \
 %endif
-    -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
+	-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
 	%{nil}
 
 %make_build
