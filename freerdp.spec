@@ -1,3 +1,5 @@
+%global optflags %{optflags} -O2
+
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
 
