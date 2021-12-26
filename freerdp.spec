@@ -26,7 +26,7 @@
 
 Name:		freerdp
 Version:	2.4.1
-Release:	2
+Release:	3
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
